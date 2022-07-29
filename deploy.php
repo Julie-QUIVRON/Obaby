@@ -45,7 +45,7 @@ set('remote_server_user','student');
 // Répertoire cible (sur le serveur distant) où le code source sera déployé
 // => le répertoire sera créé s'il n'existe pas
 // TODO
-set('remote_server_target_repository', '/var/www/html/obabies');
+set('remote_server_target_repository', '/var/www/html/obaby');
 
 // Adresse du dépôt Github contenant le code source du projet 
 // TODO
