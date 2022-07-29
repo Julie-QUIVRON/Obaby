@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\HttpFoundation\Session\Session;
+
 
 use App\Entity\User;
 use App\Form\UserType;
@@ -32,7 +34,10 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('security/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+        ]);
     }
 
     /**
@@ -40,15 +45,29 @@ class SecurityController extends AbstractController
      */
     public function logout(): void
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        throw new \LogicException(
+            'This method can be blank - it will be intercepted by the logout key on your firewall.'
+        );
     }
 
     /**
-     * @Route("/user/{id}/delete", name="user_delete")
+     * @Route("/delete_user/{id}", name="delete_user")
      */
     public function deleteUser($id, UserRepository $userRepository)
     {
-      
-    }
+        $em = $this->doctrine->getManager();
 
+        $currentUserId = $this->getUser()->getId();
+        if ($currentUserId == $id) {
+            $session = $this->get('session');
+            $session = new Session();
+            $session->invalidate();
+        }
+
+        $user = $$userRepository->find($id);
+        $em->remove($user);
+        $em->flush();
+
+        return $this->redirectToRoute('user_registration');
+    }
 }
