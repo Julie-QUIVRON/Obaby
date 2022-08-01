@@ -14,7 +14,7 @@ set('composer_options', '--verbose --prefer-dist --no-progress --no-interaction 
 // ---------------------------------------------------------------------------
 // Paramètres de notre application
 // ---------------------------------------------------------------------------
-set("env_database", "mysql://yoann:guizmo@127.0.0.1:3306/obaby-simple?serverVersion=mariadb-10.3.34");
+set("env_database", "mysql://explorateur:Ereul9Aeng@127.0.0.1:3306/obaby-simple?serverVersion=mariadb-10.3.34");
 
 // ---------------------------------------------------------------------------
 // Paramètres de connexion au serveur distant
@@ -30,7 +30,7 @@ set("env_database", "mysql://yoann:guizmo@127.0.0.1:3306/obaby-simple?serverVers
 // Adresse du serveur distant (adresse IP ou DNS public)
 // set('remote_server_url','adresse_ip_ou_dns_public_du_serveur');
 // TODO 
-set('remote_server_url','yoann-chaperon-server.eddi.cloud');
+set('remote_server_url','lucasmachut-server.eddi.cloud');
 
 // Nom du compte utilisateur sur le serveur distant/
 // C'est cet utilisateur qui exécutera les commandes distantes.
@@ -53,7 +53,7 @@ set('repository', 'git@github.com:O-clock-Curie/projet-03-obaby.git');
 
 // Nom de la branche à déployer
 // TODO branch
-set('repository_target_branch', 'deployeYoann');
+set('repository_target_branch', 'lucas-deploy-A');
 
 // ---------------------------------------------------------------------------
 // Autres paramètres concernant le déploiement
