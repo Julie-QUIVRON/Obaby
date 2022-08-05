@@ -32,13 +32,6 @@ class UserType extends AbstractType
             ->add('pseudo',TextType::class, [
                 'label' => '* Pseudonyme',
                 ])
-            ->add('status', ChoiceType::class,
-            [   'label' => '* Statut',
-                'choices' => [
-                    'activé' => '1',
-                    'désactivé' => '0',            
-                ],
-            ])
         ;
 
     }
