@@ -81,7 +81,6 @@ class Practice
             'phone-1400.png',
             'enfant-1400.jpg',
             'ecrire-1400.png',
-            'phone-1400.png',
             'babyfeet-1400.png',
             'boygirl-1400.png',
             'face-1400.png',
