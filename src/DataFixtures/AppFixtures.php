@@ -4,11 +4,7 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Faker;
 use App\Entity\Category;
-use App\Entity\Question;
-use App\Entity\Answer;
-use App\Entity\Practice;
 use App\Entity\User;
 use App\Services\SlugService;
 use Doctrine\DBAL\Connection;
@@ -40,20 +36,10 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        //Add truncate function to set id to 1
         $this->truncate();
 
 
-        // $product = new Product();
-        // $manager->persist($product);
-
-        // Instaciation faker factory
-        $faker = Faker\Factory::create('fr_FR');
-
         $categoryList = [];
-        $questionList = [];
-        $answerList = [];
-        $practiceList = [];
         $userList = [];
 
         // User creation
@@ -64,47 +50,25 @@ class AppFixtures extends Fixture
         $userAdmin->setEmail('admin@admin.com');
         $userAdmin->setPseudo('admin');
         $userAdmin->setSlug($this->slugService->slug($userAdmin->getPseudo()));
-        $userAdmin->setPassword('$2y$13$B5F2MaAidY68n5uqLEfrKeom.VARDRos.mEdgvWZWTTRXztOatBnq');
+        $userAdmin->setPassword('$2y$13$D1OpuSSUsGu1EEZdc6K7juPDc4pdQ/1CIb2/15.Wlv6KUzjakovzS');
         $userAdmin->setStatus(1);
         $userAdmin->setGenre($genre[0]);
         $userAdmin->setRoles(['ROLE_ADMIN']);
         $userList[] = $userAdmin;
-
-        $userModerator = new User();
-        $userModerator->setEmail('moderator@moderator.com');
-        $userModerator->setPseudo('moderator');
-        $userModerator->setSlug($this->slugService->slug($userModerator->getPseudo()));
-        $userModerator->setPassword('$2y$13$4aEMwhxQrZhkpKlDwtbfvOIDi8k5yoniNLV/Qb7xfUfCuHb2dgC2i');
-        $userModerator->setGenre($genre[1]);
-        $userModerator->setStatus(1);
-        $userModerator->setRoles(['ROLE_MODERATOR']);
-        $userList[] = $userModerator;
-
-        $userUser = new User();
-        $userUser->setEmail('user@user.com');
-        $userUser->setPseudo('user');
-        $userUser->setSlug($this->slugService->slug($userUser->getPseudo()));
-        $userUser->setPassword('$2y$13$vAX65eah5osvbxoLSY.QGO2TpbCNQgMs4blP6WZ0zwPXt7gUnERSC');
-        $userUser->setGenre($genre[1]);
-        $userUser->setStatus(1);
-        $userUser->setRoles(['ROLE_USER']);
-        $userList[] = $userUser;
 
         $userAnonymous = new User();
         $userAnonymous->setEmail('obaby@gmail.com');
         $userAnonymous->setPseudo('Anonymous');
         $userAnonymous->setSlug($this->slugService->slug($userAnonymous->getPseudo()));
         $userAnonymous->setPassword('$2y$13$SQCAsxHo2Pwk9vAnSpMIxuCQvBrAE.ekHEYE5eKL/ChksQASPJ1cS');
-        $userAnonymous->setGenre($genre[0]);
+        $userAnonymous->setGenre($genre[1]);
         $userAnonymous->setStatus(1);
         $userAnonymous->setRoles(['ROLE_USER']);
         $userList[] = $userAnonymous;
         
         $manager->persist($userAdmin);
-        $manager->persist($userModerator);
-        $manager->persist($userUser);
-        $manager->persist($userAnonymous);
 
+        $manager->persist($userAnonymous);
 
         // Category creation
         
@@ -150,74 +114,7 @@ class AppFixtures extends Fixture
             $category6->setSlug($categorySlug6);
             $manager->persist($category6);
             $categoryList[] = $category6;
-            
-            
-            
-            
-            // Question creation
-            
-            for ($j = 0; $j < 30; $j++) {
-                $question = new Question();
-                $question->setContent($faker->sentence(true));
-                $question->setCategory($categoryList[array_rand($categoryList)]);
-                $date = $faker->date('Y-m-d');
-                $question->setCreatedAt(new \DateTime($date));
-                $question->setStatus($faker->numberBetween(0, 1));
-                $question->setUser($userList[array_rand($userList)]);
-                
-                $manager->persist($question);
-                $questionList[] = $question;
-            }
-            
-            // Answer creation
-            
-            for ($k = 0; $k < 30; $k++) {
-                $answer = new Answer();
-                $answer->setContent($faker->paragraph(true));
-                $dateAnswer = $faker->date('Y-m-d');
-                $answer->setCreatedAt(new \DateTime($dateAnswer));
-                $answer->setQuestion($questionList[array_rand($questionList)]);
-                $answer->setStatus($faker->numberBetween(0, 1));
-                $answer->setUser($userList[array_rand($userList)]);
-                
-                $manager->persist($answer);
-                $answerList[] = $answer;
-            }
-            
-            // Practice creation
-            $pictureList = [
-                'baby1.png',
-                'baby2.png',
-                'baby3.png',
-                'baby4.png',
-                'baby5.png',
-                'baby6.png',
-                'baby7.png',
-                'baby8.png',
-                'baby9.png',
-                'baby10.png',
-                'baby11.png',
-                'phone-1400.png',
-                'enfant-1400.jpg',
-                'ecrire-1400.png',
-            ];
-    
-            
-            for($l = 0; $l < 30; $l++) {
-            $practice = new Practice();
-            $practice->setPicture($pictureList[array_rand($pictureList)]);
-            $practice->setTitle($faker->sentence(true));
-            $practice->setSlug($this->slugService->slug($practice->getTitle()));
-            $practice->setContent($faker->paragraph(3));
-            $practice->setCategory($categoryList[array_rand($categoryList)]);
-            $datePractice = $faker->date('Y-m-d');
-            $practice->setCreatedAt(new \DateTime($datePractice));
-            $practice->setStatus($faker->numberBetween(0, 1));
-            $practice->setUser($userList[array_rand($userList)]);
 
-            $manager->persist($practice);
-            $practiceList[] = $practice;
-        }
 
         $manager->flush();
     }
