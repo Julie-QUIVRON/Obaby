@@ -5,6 +5,9 @@ namespace App\Controller\Back;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\AnswerRepository;
+use App\Repository\PracticeRepository;
+use App\Repository\QuestionRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,13 +54,36 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}/delete", name="delete", methods={"POST"})
      */
-    public function delete(Request $request, User $user, UserRepository $userRepository): Response
+    public function delete(Request $request, User $user, UserRepository $userRepository, QuestionRepository $questionRepository, AnswerRepository $answerRepository, PracticeRepository $practiceRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $this->addFlash('success', 'Votre utilisateur a bien été supprimé.');
+            $anonymous = $userRepository->findOneBy(['pseudo' => 'Anonymous']);
+            if ( $user->getQuestions() ) {
+                foreach ($user->getQuestions() as $key => $value) {
+                    $value->setUser($anonymous);
+                    $questionRepository->add($value, true);
+                    $user->removeQuestion($value);
+                }
+            }
+            if ( $user->getPractices() ) {
+                foreach ($user->getPractices() as $key => $value) {
+                    $value->setUser($anonymous);
+                    $practiceRepository->add($value, true);
+                    $user->removePractice($value);
+                }
+            }
+            if ( $user->getAnswers() ) {
+                foreach ($user->getAnswers() as $key => $value) {
+                    $value->setUser($anonymous);
+                    $answerRepository->add($value, true);
+                    $user->removeAnswer($value);
+                }
+            }
+
             $userRepository->remove($user, true);
-        }
 
         return $this->redirectToRoute('back_user_list', [], Response::HTTP_SEE_OTHER);
     }
+}
 }

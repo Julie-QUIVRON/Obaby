@@ -262,7 +262,7 @@
     top: 70vh;
     left: 1em;
 /*     left: calc(50% - 61px); */
-    background-color: var(--blue);
+    background-color: var(--primary);
     width: 7rem;
     height: 7rem;
     border-radius: 50%;

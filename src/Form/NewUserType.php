@@ -77,12 +77,16 @@ class NewUserType extends AbstractType
                                 ],
                         ])
                         ->add('genre', ChoiceType::class, [
-                                'label' => 'Genre',
+                                'label' => '*Genre',
+                                'placeholder' => 'Choisissez un genre',
                                 'choices' => [
-                                        'Homme' => 'homme',
                                         'Femme' => 'femme',
+                                        'Homme' => 'homme',
                                 ],
-                        ]);
+                                'constraints' => new NotBlank(),
+                                'constraints' => new NotNull(),
+                                'required' => true,
+                                ]);
         }
 
         public function configureOptions(OptionsResolver $resolver): void
