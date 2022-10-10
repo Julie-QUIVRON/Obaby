@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class NewUserType extends AbstractType
 {
@@ -59,6 +60,10 @@ class NewUserType extends AbstractType
                                         'label' => '* Mot de passe',
                                         'constraints' => new NotBlank(),
                                         'constraints' => new NotNull(),
+                                        'constraints' => new Regex(
+                                                "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/",
+                                                "Le mot de passe doit contenir au minimum 12 caractères, une majuscule, un chiffre et un caractère spécial"
+                                        ),
                                         'attr' => array(
                                                 'type' => 'password',
                                                 'placeholder' => 'Password'
