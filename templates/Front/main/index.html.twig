@@ -88,6 +88,7 @@
             </div>
           </a>
           </div>
+
           <div class="col-lg-4 col-sm-6">
           <a href={{ path('category_show_question')}}>
             <div class="main-buttons-item btn-questions">
@@ -99,8 +100,8 @@
                 </div>
             </div>
           </a>
-
           </div>
+
           <div class="col-lg-4 col-sm-6">
           <a href={{ path('question_ask')}}>
             <div class="main-buttons-item btn-ask">
@@ -117,19 +118,16 @@
       </div>
     </div>
   </div>
-
   <!-- 3-main-buttons end -->
 
   <!-- testimonial start -->
-
   <h1 class="text-center mt-lg-5 title"> Dernières questions posées par la communauté</h1>
-
 
   <section class="testimonial-area">
     <div class="container">
       <div class="testimonial-content owl-carousel">
-        <!-- slide item 1 -->
 
+        <!-- slide item 1 -->
       {% for question in questionCarroussel %}
         <div class="single-testimonial">
           <a href="{{ path('question_list', {slug: question.category.slug}) }}">
@@ -145,9 +143,10 @@
           </a>
         </div>
       {% endfor %}
+      
       </div>
     </div>
   </section>
-
   <!-- testimonial End -->
+
 {% endblock %}

@@ -1,17 +1,16 @@
     <!-- Navbar Start -->
   <nav class="navbar navbar-expand-lg bg-white navbar-light ">
     <a href={{ path('front_home')}} class="navbar-brand">
-      <img class="m-2" style="width: 8rem; height: 3rem" role="logo" src="{{ asset('asset/logo/logo O\'Baby.png') }}" alt=""
-        srcset="" />
+      <img class="m-2" style="width: 8rem; height: 3rem" role="logo" src="{{ asset('asset/logo/logo O\'Baby.png') }}" alt="logo Obaby"/>
     </a>
 
-    <!-- Hamburger Start -->
+    <!-- Burger Start -->
     <div type="button" class=" m-2" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
       <div class="menu-btn">
         <div class="menu-btn__burger"></div>
       </div>
     </div>
-    <!-- Hamburger End -->
+    <!-- Burger End -->
 
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <div class="navbar-nav mx-auto">
@@ -19,10 +18,11 @@
         <a href={{ path('back_practice_list')}} class="nav-item nav-link">Bonnes pratiques</a>
         <a href={{ path('back_question_list')}} class="nav-item nav-link">Questions</a>
         <a href={{ path('back_answer_list')}} class="nav-item nav-link">Réponses</a>
+        {% if is_granted("ROLE_ADMIN") %}
         <a href={{ path('back_user_list')}} class="nav-item nav-link">Utilisateurs</a>
+        {% endif %}
         <a href={{ path('back_category_list')}} class="nav-item nav-link">Catégories</a>
         <a href="{{ path('security_logout') }}" class="nav-item nav-link d-lg-none">Déconnexion</a>
-
       </div>
       <a href="{{ path('security_logout') }}" class="btn rounded-pill px-3 d-none d-lg-block m-2">Déconnexion<i class="fa fa-sign-in ms-3" aria-hidden="true"></i></a>
     </div>

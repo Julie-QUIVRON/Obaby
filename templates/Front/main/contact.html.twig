@@ -83,7 +83,9 @@
             votre pseudonyme et adresse mail de notre côté. Par contre, le contenu fourni restera sous le pseudonyme «
             Anonyme » pour une question de cohérence de notre site (on considère que tout le contenu donné par la communauté
             peut aider les autres membres).</p>
+            {% if is_granted("ROLE_USER") %}
             <p> Vous êtes sûr et certain de vouloir nous quitter ? Alors, rendez-vous sur  <a href="{{ path('user_show', {slug: app.user.slug }) }}" class="styled-link">votre compte </a>(en haut à droite du site).</p>
+            {% endif %}
         </details>
 
 

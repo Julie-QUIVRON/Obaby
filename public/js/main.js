@@ -8,7 +8,7 @@ menuHamburger.addEventListener('click', ()=>{
 })
 //************** END NAVBAR AMINATE ***************/
 
-//**************** START AMINATE HAMBURGER **********/
+//**************** START AMINATE BURGER **********/
 
 const menuBtn = document.querySelector('.menu-btn');
 let menuOpen = false;
@@ -22,7 +22,7 @@ menuBtn.addEventListener('click', () => {
     }
 });
 
-//************** END AMINATE HAMBURGER **********/
+//************** END AMINATE BURGER **********/
 
 //************ START SLIDER TESTIMONIAL ************/
 
